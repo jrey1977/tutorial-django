@@ -1,15 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <main>
-        <h1>Blog</h1>
-        <p>Entradas del blog</p>
-    </main>
-</body>
-</html>
+{% extends "blog/base.html" %}
+
+{% block content %}
+<h2>Últimas entradas</h2>
+<ul>
+    {% for post in posts %}
+        <li>
+            <h3>{{post.title}}</h3>
+            <span class="date">{{post.created|date:"SHORT_DATE_FORMAT"}}</span>
+            <p>{{post.content | truncatewords:'20'}}</p>
+            <a href="/blog/{{post.id}}">Leer más</a>
+        </li>
+    {% endfor %}
+</ul>
+<style>
+    ul{
+        list-style-type: none;
+    }
+    li{
+        border-bottom: 1px solid black;
+        padding-bottom: 25px;
+    }
+    li:last-child{
+        border-bottom: none;
+    }
+</style>
+{% endblock %}
